@@ -1,0 +1,55 @@
+//https://oj.leetcode.com/problems/zigzag-conversion/
+/*
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string text, int nRows);
+convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+*/
+//my solution:
+class Solution {
+public:
+string convert(string s, int nRows)
+{
+    string ret(s);
+    int len = s.size();
+    if(len == 0 || len == 1) return ret;
+    if(nRows == 1) return ret;
+    
+    int index = 0;
+    for(int i = 0; i < nRows; i++)
+    {
+        int step1 = 2*(nRows - i - 1);
+        int step2 = 2*i;
+        int flag = 0;
+        for(int j = i; j < len;)
+        {
+            ret[index] = s[j];
+            if(flag == 0 )
+            {
+                j+= step1;
+                flag = 1;
+                if(step1) index++;
+            }
+            else
+            {
+                j+= step2;
+                flag = 0;
+                if(step2) index++;
+            }
+        }
+    }
+    return ret;
+}
+};
+//收获：
+/*
+1)仔细审题，一开始没有仔细审题，导致思路错误，【可以按照题中一般都会给的例子进行演算】
+2)想好再code【大致的框架】
+3)利用标准库中相关的函数
+*/
